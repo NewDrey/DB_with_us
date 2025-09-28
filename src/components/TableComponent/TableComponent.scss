@@ -1,0 +1,21 @@
+
+
+.headerBackGround {
+  //background-color: #61dafb;
+  padding: 0 10px 0 10px;
+  border-radius: (6px 6px 0 0);
+  min-width: 30%;
+  cursor: inherit; // Наследуем cursor от родителя
+  user-select: none
+}
+
+.tableDiv {
+  color: white;
+  font-size: 22px;
+  z-index: 1;
+  position: absolute;
+  min-width: 30%;
+  border: 1px solid #ccc;
+  border-radius: (8px 8px 0 0);
+  background: rgba(0, 0, 0, 0.7)
+}
