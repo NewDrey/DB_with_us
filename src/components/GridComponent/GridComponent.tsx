@@ -1,19 +1,18 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { useGridDrag } from './hooks/useGridDrag';
 import { useChildDrag } from './hooks/useChildDrag';
 import { useGridZoom } from './hooks/useGridZoom';
 import { useGridDrawing } from './hooks/useGridDrawing';
-import { useThemeBackground } from './hooks/useThemeBackground';
-import { getPhysicalPosition } from './utils/coordinates';
-import { GridProps, ChildWithPositionProps } from './types/types';
-import './GridComponent.scss'
-import {useTheme} from "../../hooks/useTheme";
+import { getPhysicalPosition, useGridAnimation } from './utils/coordinates';
 
-const GridComponent: React.FC<GridProps> = ({
-                                                          gridSize = 40,           // Размер клетки сетки по умолчанию
-                                                          children,             // Дочерние элементы (таблицы) для отображения на сетке
-                                                          onChildDrag                          // Callback для уведомления о перемещении детей
-                                                      }) => {
+import { GridProps, GridHandle, ChildWithPositionProps } from './types/types';
+import './GridComponent.scss'
+
+const GridComponent = forwardRef<GridHandle, GridProps>(({
+                                                                       gridSize = 40,
+                                                                       children,
+                                                                       onChildDrag
+                                                                   }, ref) => {
     // Ref для доступа к DOM-контейнеру сетки
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,18 +33,26 @@ const GridComponent: React.FC<GridProps> = ({
         handleChildMouseUp       // Обработчик завершения перетаскивания ребенка
     } = useChildDrag(onChildDrag);
 
-    //Подписываемся на обновления темы
-    useTheme()
-
     // Хук для обработки зума колесиком мыши
     useGridZoom(containerRef, gridState, setGridState);
 
     // Хук для отрисовки сетки на canvas
     useGridDrawing(containerRef, gridState, gridSize);
 
-    // Хук для применения фонового цвета из темы
-    useThemeBackground(containerRef);
+    // Метод для центрирования камеры на логической точке
+    const { centerOnPoint } = useGridAnimation({
+        gridState,
+        setGridState,
+        containerRef
+    });
 
+    // Экспортируем методы через ref
+    useImperativeHandle(ref, () => ({
+        getScale: () => gridState.scale,
+        getPosition: () => gridState.position,
+        setPosition: (x: number, y: number) => setGridState(prev => ({ ...prev, position: { x, y } })),
+        centerOnPoint: centerOnPoint // ← Экспортируем метод центрирования
+    }), [gridState.scale, gridState.position, setGridState, centerOnPoint]);
 
     // Объединенный обработчик движения мыши - диспетчер событий
     const combinedHandleMouseMove = useCallback((e: MouseEvent) => {
@@ -164,6 +171,6 @@ const GridComponent: React.FC<GridProps> = ({
             </div>
         </div>
     );
-};
+});
 
 export default GridComponent;

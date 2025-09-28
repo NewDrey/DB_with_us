@@ -1,8 +1,11 @@
-
 .leftMainEl {
   height: 100vh;
   width: 20vw;
+  max-width: 240px;
   position: absolute;
   z-index: 3;
-  border-right: 1px solid rgba(159, 168, 175, 0.167) // rgb(230, 230, 230)
+  border-right: 1px solid rgba(159, 168, 175, 0.167);
+  padding: 2px 0 0 0;
+  background-color: var(--left-bar-background);
 }
+

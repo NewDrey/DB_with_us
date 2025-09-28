@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { GridState } from '../types/types';
-import store from '../../../ts/store';
 
 // Отрисовка канваса.
 export const useGridDrawing = (
@@ -9,13 +8,32 @@ export const useGridDrawing = (
     gridSize: number // Базовый размер клетки сетки
 ) => {
     // Получаем цвет сетки из темы
-    const gridColor = store.getters.getTheme('gridColor');
+    const root = document.documentElement;
+    // const gridColor = getComputedStyle(root).getPropertyValue('--grid-color').trim();
+    const [gridColor, setGridColor] = useState(getComputedStyle(root).getPropertyValue('--grid-color').trim());
+    // Следим за изменениями темы
+    useEffect(() => {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'data-theme' ||
+                    mutation.attributeName === 'class') {
+                    setGridColor(getComputedStyle(root).getPropertyValue('--grid-color').trim());
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme', 'class']
+        });
+
+        return () => observer.disconnect();
+    });
 
     // Функция отрисовки сетки на canvas
     const drawGrid = useCallback((ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
         // Очищаем canvas перед каждой отрисовкой
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         // Настраиваем стиль линий сетки
         ctx.strokeStyle = gridColor;
         ctx.lineWidth = 1;

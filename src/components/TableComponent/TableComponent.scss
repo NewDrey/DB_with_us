@@ -1,7 +1,7 @@
 
 
 .headerBackGround {
-  //background-color: #61dafb;
+  background-color: var(--table-header-color);
   padding: 0 10px 0 10px;
   border-radius: (6px 6px 0 0);
   min-width: 30%;
@@ -15,7 +15,8 @@
   z-index: 1;
   position: absolute;
   min-width: 30%;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(159, 168, 175, 0.167);
+  box-shadow: 3px 4px 6px var(--box-shadow-color);
   border-radius: (8px 8px 0 0);
   background: rgba(0, 0, 0, 0.7)
 }

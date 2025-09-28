@@ -30,3 +30,22 @@ export interface GridProps {
     children?: React.ReactNode[];
     onChildDrag?: (index: number, logicalX: number, logicalY: number) => void;
 }
+
+export interface GridHandle {
+    getScale: () => number;
+    getPosition: () => { x: number; y: number };
+    setPosition: (x: number, y: number) => void; // ← Добавляем метод для установки позиции
+    centerOnPoint: (logicalX: number, logicalY: number) => void; // ← Новый метод для центрирования
+}
+
+// Интерфейс для функций анимации
+export interface GridAnimationHandle {
+    centerOnPoint: (logicalX: number, logicalY: number, duration?: number) => void;
+}
+
+// Параметры хука
+export interface UseGridAnimationProps {
+    gridState: GridState;
+    setGridState: React.Dispatch<React.SetStateAction<GridState>>;
+    containerRef: React.RefObject<HTMLDivElement | null>;
+}
