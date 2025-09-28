@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './TopBar.css'; // Создадим стили
 import { FaMoon, FaSun } from 'react-icons/fa';
-import store from "../../ts/store";
+import {useTheme } from '../../ts/ThemeContext/ThemeContext'
 
 export const TopBar = () => {
     const location = useLocation();
-    const [darkTheme, setDarkTheme] = useState(true)
+    const { theme, toggleTheme } = useTheme();
     return (
         <nav className="top-bar">
             <div className="top-bar-content">
@@ -18,15 +18,10 @@ export const TopBar = () => {
                     <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>
                         О нас
                     </Link>
-                    <Link to='#' onClick={()=> {
-                            const newTheme = store.state.theme === 'light' ? 'dark' : 'light';
-                            setDarkTheme(!darkTheme)
-                            store.setTheme(newTheme);
-                        }} className={`nav-link ${darkTheme? 'active' : ''}`}>
-                        {
-                            darkTheme? FaMoon({size: 20})  : FaSun({size:20})
-                        }
+                    <Link to='#' onClick={toggleTheme} className='nav-link'>
+                        {theme === 'light' ?  FaMoon({size: 20})  : FaSun({size:20})}
                     </Link>
+
                 </div>
             </div>
         </nav>

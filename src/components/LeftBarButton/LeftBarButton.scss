@@ -1,0 +1,24 @@
+
+.leftBarButton {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: start;
+  padding: 7px 0 7px 0;
+  align-items: center;
+  font-weight: 500;
+  color: var(--table-header-color);
+  border-bottom: 1px solid var(--table-header-color);
+}
+
+.leftBarButton > span {
+  margin: 0 0 0 7%;
+  font-size: 17px;
+}
+.leftBarButton > svg {
+  margin: 0 0 0 7%
+}
+
+.leftBarButton:hover {
+  cursor: pointer;
+}

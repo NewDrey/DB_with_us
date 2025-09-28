@@ -3,14 +3,14 @@ const dark = {
     gridColor: 'rgba(255, 255, 255, 0.1)',
     backgroundColor: 'rgba(40, 44, 52, 1)',
     tableHeaderColor: 'rgba(97, 218, 251, 0.7)',
-    leftBarBackground: 'rgba(40, 44, 52, 1)',
+    leftBarButtons: 'rgba(40, 44, 52, 1)',
 } as const;
 
 const light = {
     gridColor: 'rgba(97, 218, 251, 0.6)',
     backgroundColor: 'rgba(255, 250, 250,1)',
     tableHeaderColor: 'rgba(97, 218, 251, 1)',
-    leftBarBackground: 'rgba(255, 250, 250,1)',
+    leftBarButtons: 'rgba(255, 250, 250,1)',
 } as const;
 
 const themes = {

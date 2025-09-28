@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+:root {
+  --bg-color: rgba(255, 250, 250,1);
+  --grid-color: rgba(0, 177, 226, 0.6);
+  --table-header-color: rgba(0, 177, 226, 1);
+  --left-bar-background: rgba(255, 250, 250,1);
+  --left-bar-textcolor: rgba(0, 177, 226, 1);
+  --box-shadow-color: rgba(159, 168, 175, 1);
+}
+
+[data-theme="dark"] {
+  --bg-color: rgba(40, 44, 52, 1);
+  --grid-color: rgba(255, 255, 255, 0.1);
+  --table-header-color: rgba(97, 218, 251, 0.7);
+  --left-bar-background: rgba(40, 44, 52, 1);
+  --left-bar-textcolor: rgba(97, 218, 251, 0.7);
+  --box-shadow-color: rgb(63, 63, 65);
+}
+
